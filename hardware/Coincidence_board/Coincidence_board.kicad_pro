@@ -454,7 +454,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Rayonnement_L476RG.kicad_pro",
+    "filename": "Coincidence_board.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -930,7 +930,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "VisionIndustrielle_TP.net",
-      "plot": "rayonnement_gerber/",
+      "plot": "quantum_interf_gerber/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
@@ -1039,7 +1039,7 @@
     },
     "net_format_name": "Pcbnew",
     "page_layout_descr_file": "",
-    "plot_directory": "",
+    "plot_directory": "pdf/",
     "spice_adjust_passive_values": false,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
