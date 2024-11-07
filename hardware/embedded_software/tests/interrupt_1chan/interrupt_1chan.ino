@@ -11,8 +11,8 @@
  *    Author : Julien VILLEMEJANE / 06/nov/2024
  */
 
-#define   AIN       PC7
-#define   LED       PA5
+#define   AIN       PB10  // D6
+#define   LED       PC7
 
 int   ACounter = 0;
 int   timerCounter = 0;
