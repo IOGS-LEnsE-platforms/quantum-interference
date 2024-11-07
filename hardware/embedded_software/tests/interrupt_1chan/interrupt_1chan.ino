@@ -12,9 +12,11 @@
  */
 
 #define   AIN       PB10  // D6
+#define   BIN       PA8   // D7
 #define   LED       PC7
 
 int   ACounter = 0;
+int   BCounter = 0;
 int   timerCounter = 0;
 bool  acquisition = false;
 bool  newData = false;
@@ -22,11 +24,14 @@ bool  newData = false;
 void setup() {
   Serial.begin(9600);
   while(!Serial);
+  Serial.println("OK !");
 
   pinMode(LED, OUTPUT);
+  digitalWrite(LED, HIGH);
   pinMode(AIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(AIN), countingInt, RISING);
-  digitalWrite(LED, LOW);
+  pinMode(BIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(AIN), countingAInt, RISING);
+  attachInterrupt(digitalPinToInterrupt(BIN), countingBInt, RISING);
 
   // // Setup TIMER !
 #if defined(TIM1)
@@ -40,30 +45,45 @@ void setup() {
   MyTim->attachInterrupt(samplingInt);
   MyTim->resume();
   // // Setup TIMER ! // END
+  digitalWrite(LED, LOW);
+  newData = false;
 }
 
 void loop() {
   if(Serial.available()){
+    Serial.println("Serial");
     char inChar = (char)Serial.read();
     if(inChar == 's'){
+      Serial.println("Start");
       digitalWrite(LED, HIGH);
 
       ACounter = 0;
+      BCounter = 0;
       acquisition = true;
       timerCounter = 10; // 10 times at 10 Hz = 1 second
     }
   }
   if(newData == true){
     newData = false;
+    Serial.print("Value A = ");
     Serial.println(ACounter);
+    Serial.print("Value B = ");
+    Serial.println(BCounter);
     ACounter = 0;
+    BCounter = 0;
   }
   delay(100);
 }
 
-void countingInt(void){
+void countingAInt(void){
   if(acquisition == true){
     ACounter += 1;
+  }
+}
+
+void countingBInt(void){
+  if(acquisition == true){
+    BCounter += 1;
   }
 }
 
@@ -77,7 +97,9 @@ void samplingInt(void){
 }
 
 void stopTimer(void){
-  digitalWrite(LED, LOW);
-  acquisition = false;
-  newData = true;
+  if(acquisition == true){
+    digitalWrite(LED, LOW);
+    acquisition = false;
+    newData = true;
+  }
 }
