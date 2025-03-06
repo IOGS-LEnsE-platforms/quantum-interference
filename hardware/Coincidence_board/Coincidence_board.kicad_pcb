@@ -25405,7 +25405,7 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "Quantum Interference\nLEnsE / 2024 / Dephi Project"
+	(gr_text "Quantum Interference\nLEnsE / 2025 / Dephi Project"
 		(at 241.5 70.4 0)
 		(layer "F.SilkS")
 		(uuid "cc936a8b-c4d6-4366-9c98-d3b1357d0165")
