@@ -25,7 +25,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,7 +48,18 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t 	txBuffer[20] = {0};
+char 		txBuffer[20] = {0};
+int			a_counter = 0, a_counter_save = 0;
+int			b_counter = 0, b_counter_save = 0;
+int			c_counter = 0, c_counter_save = 0;
+int			ab_counter = 0, ab_counter_save = 0;
+int			ac_counter = 0, ac_counter_save = 0;
+int			bc_counter = 0, bc_counter_save = 0;
+int			abc_counter = 0, abc_counter_save = 0;
+
+/*Configure GPIO pins : PA4 PA5 PA6 PA7
+                         PA8 PA9 PA10 PA11 */
+
 
 /* USER CODE END PV */
 
@@ -94,21 +107,27 @@ int main(void)
   MX_LPTIM1_Init();
   MX_TIM16_Init();
   /* USER CODE BEGIN 2 */
+  // TIM16 - 16 bits Timer / Period = (PSC+1)(ARR+1) / 170MHz  (??)  ARR = 2^16
+  // For PSC = 2615 -> T = 1000ms
 
   // Init
-  txBuffer[0] = 'B';
+  txBuffer[0] = 'Z';
   txBuffer[1] = '\r';
   txBuffer[2] = '\n';
   txBuffer[3] = '\0';
 
+
+  // Start TIM16 timer
+  HAL_TIM_Base_Start_IT(&htim16);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_UART_Transmit(&huart2, txBuffer, 4, 1000);
-	HAL_Delay(100);
+	//HAL_UART_Transmit(&huart2, txBuffer, 4, 1000);
+	//HAL_Delay(100);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -163,7 +182,73 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+// Interrupt on EXTI - PA4, PA5...
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if(GPIO_Pin == GPIO_PIN_1) // If The INT Source Is EXTI Line1 (A1 Pin)
+    {
+    	a_counter++;
+    }
+    if(GPIO_Pin == GPIO_PIN_4) // If The INT Source Is EXTI Line4 (A4 Pin)
+    {
+    	b_counter++;
+    }
+    if(GPIO_Pin == GPIO_PIN_6) // If The INT Source Is EXTI Line6 (A6 Pin)
+    {
+    	c_counter++;
+    }
+    if(GPIO_Pin == GPIO_PIN_8) // If The INT Source Is EXTI Line8 (A8 Pin)
+    {
+    	ab_counter++;
+    }
+    if(GPIO_Pin == GPIO_PIN_9) // If The INT Source Is EXTI Line9 (A9 Pin)
+    {
+    	abc_counter++;
+    }
+    if(GPIO_Pin == GPIO_PIN_12) // If The INT Source Is EXTI Line12 (A12 Pin)
+    {
+    	bc_counter++;
+    }
+    if(GPIO_Pin == GPIO_PIN_5) // If The INT Source Is EXTI Line5 (PB5 Pin)
+    {
+    	ac_counter++;
+    }
+}
 
+// Interrupt on TIM - TIM16
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
+{
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET);
+    a_counter_save = a_counter;
+    a_counter = 0;
+    b_counter_save = b_counter;
+    b_counter = 0;
+    c_counter_save = c_counter;
+    c_counter = 0;
+    ab_counter_save = ab_counter;
+    ab_counter = 0;
+    ac_counter_save = ac_counter;
+    ac_counter = 0;
+    bc_counter_save = bc_counter;
+    bc_counter = 0;
+    abc_counter_save = abc_counter;
+    abc_counter = 0;
+	sprintf(txBuffer, "A=%d\n", a_counter_save+1);
+    HAL_UART_Transmit(&huart2, (uint8_t *)txBuffer, strlen(txBuffer), 1000);
+	sprintf(txBuffer, "B=%d\n", b_counter_save+1);
+    HAL_UART_Transmit(&huart2, (uint8_t *)txBuffer, strlen(txBuffer), 1000);
+	sprintf(txBuffer, "C=%d\n", c_counter_save+1);
+    HAL_UART_Transmit(&huart2, (uint8_t *)txBuffer, strlen(txBuffer), 1000);
+	sprintf(txBuffer, "AB=%d\n", ab_counter_save+1);
+    HAL_UART_Transmit(&huart2, (uint8_t *)txBuffer, strlen(txBuffer), 1000);
+	sprintf(txBuffer, "AC=%d\n", ac_counter_save+1);
+    HAL_UART_Transmit(&huart2, (uint8_t *)txBuffer, strlen(txBuffer), 1000);
+	sprintf(txBuffer, "BC=%d\n", bc_counter_save+1);
+    HAL_UART_Transmit(&huart2, (uint8_t *)txBuffer, strlen(txBuffer), 1000);
+	sprintf(txBuffer, "ABC=%d\n", abc_counter_save+1);
+    HAL_UART_Transmit(&huart2, (uint8_t *)txBuffer, strlen(txBuffer), 1000);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+}
 /* USER CODE END 4 */
 
 /**

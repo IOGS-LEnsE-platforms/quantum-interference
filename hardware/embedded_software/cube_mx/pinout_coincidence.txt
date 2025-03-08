@@ -1,0 +1,23 @@
+Period
+======
+
+FCLK = 170 MHz
+ARR = 2^16
+PSC = 2615
+
+Tout = (ARR + 1)(PSC + 1) / FCLK
+
+Pinout
+======
+
+PB_4 -> Out : TIM16 pulse
+
+Interrupts EXTI - Add Pull_down Resistor to GND / 1k
+---------------
+PA_1 - A
+PA_4 - B
+PA_6 - C
+PA_8 - AB
+PB_5 - AC
+PA_12 - BC
+PA_9 - ABC

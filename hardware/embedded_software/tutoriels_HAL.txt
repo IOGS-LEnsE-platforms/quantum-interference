@@ -5,10 +5,21 @@ CubeMX and CubeIDE
 Binary Files from CubeIDE : https://community.st.com/t5/stm32cubeide-mcus/how-to-generate-bin-file-after-building-with-cubeide/td-p/334423
 
 
+STM32
+=====
+
+Timers : https://www.st.com/resource/en/application_note/an4013-introduction-to-timers-for-stm32-mcus-stmicroelectronics.pdf
+
 
 HAL Library
 ===========
 
+Output : https://deepbluembedded.com/stm32-gpio-write-pin-digital-output-lab/
+
 Delay : https://deepbluembedded.com/stm32-delay-microsecond-millisecond-utility-dwt-delay-timer-delay/#stm32-delay-functions
 
 USART :  https://deepbluembedded.com/stm32-usart-uart-tutorial/
+
+EXTI : https://deepbluembedded.com/stm32-external-interrupt-example-lab/
+
+Timer : https://deepbluembedded.com/stm32-timer-interrupt-hal-example-timer-mode-lab/
