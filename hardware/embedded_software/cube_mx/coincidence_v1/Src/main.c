@@ -46,6 +46,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+uint8_t 	txBuffer[20] = {0};
 
 /* USER CODE END PV */
 
@@ -66,6 +67,7 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -93,14 +95,21 @@ int main(void)
   MX_TIM16_Init();
   /* USER CODE BEGIN 2 */
 
+  // Init
+  txBuffer[0] = 'B';
+  txBuffer[1] = '\r';
+  txBuffer[2] = '\n';
+  txBuffer[3] = '\0';
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	HAL_UART_Transmit(&huart2, txBuffer, 4, 1000);
+	HAL_Delay(100);
     /* USER CODE END WHILE */
-
 
     /* USER CODE BEGIN 3 */
   }

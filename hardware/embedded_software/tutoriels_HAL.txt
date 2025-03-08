@@ -1,0 +1,14 @@
+
+CubeMX and CubeIDE
+==================
+
+Binary Files from CubeIDE : https://community.st.com/t5/stm32cubeide-mcus/how-to-generate-bin-file-after-building-with-cubeide/td-p/334423
+
+
+
+HAL Library
+===========
+
+Delay : https://deepbluembedded.com/stm32-delay-microsecond-millisecond-utility-dwt-delay-timer-delay/#stm32-delay-functions
+
+USART :  https://deepbluembedded.com/stm32-usart-uart-tutorial/
