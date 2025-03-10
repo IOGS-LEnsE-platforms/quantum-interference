@@ -12,7 +12,7 @@ Pinout
 
 PB_4 -> Out : TIM16 pulse
 
-Interrupts EXTI - Add Pull_down Resistor to GND / 1k
+Interrupts EXTI
 ---------------
 PA_1 - A
 PA_4 - B
@@ -21,3 +21,9 @@ PA_8 - AB
 PB_5 - AC
 PA_12 - BC
 PA_9 - ABC
+
+Others inputs/outputs
+---------------------
+PA_2 - Analog Potentiometer 
+PB_7 - SW1 input
+PB_0 - LED1 output
