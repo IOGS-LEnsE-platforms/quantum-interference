@@ -1,0 +1,7 @@
+Coincidence Board v2
+====================
+	Developed by LEnsE / 2025
+
+
+Board with Nucleo G431KB 
+D-Flip 74HC74 PDIP circuits

@@ -1,0 +1,12 @@
+Test on Nucleo G431KB
+
+// Embedded program //
+======================
+
++ 10/03/2025 - JV - Test coincidence_v1 program (HAL and CubeIDE)
+-----------------------------------------------------------------
+- Test with 7 inputs (interrupt EXTI) :
+	+ pulses of 250 ns, amplitude 0-3V
+- Results
+	+ A/B/C -> 600 kHz
+	+ AB/BC/AC/ABC -> 50 kHz

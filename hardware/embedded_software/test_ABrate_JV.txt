@@ -1,8 +1,0 @@
-Test on Coincidence board.
-
-// Embedded program //
-----------------------
-
-+ 07/11/2024 - JV - Test Arduino program "interrupt_2chan"
-Test with a square signal from 1 to 80 kHz --> OK !!
-Amplitude 0-2V / Duty Cycle = 50 %
